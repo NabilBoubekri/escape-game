@@ -1,3 +1,9 @@
+import {Session} from "../Session/Session";
+
 export default function HomePage() {
-    return (<div></div>)
+  return( 
+    <div>
+        <Session></Session>
+    </div>
+    );
 }
