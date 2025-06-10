@@ -34,15 +34,27 @@ const data = [
       "https://lirp.cdn-website.com/1501bd63/dms3rep/multi/opt/2023-06-28+00_32_39-LE+CRIME+V3.pdf+-+Foxit+PDF+Reader-1920w.jpg",
     title: "LE CRIME",
     description:
-      "Description for session 3De l'amour, du drame : commetez le meurtre parfait au sein d'un Hôtel de luxe.",
+      "De l'amour, du drame : commetez le meurtre parfait au sein d'un Hôtel de luxe.",
   },
 ];
 
 export function Session() {
   return (
     <div className="pb-5">
-      <h1 style={{placeSelf: "center"}}>Les Session</h1>
-      <p style={{placeSelf: "center"}}>Vous retrouvez ici toutes nos sessions disponibles!</p>
+      <h1 className="text-center mt-5 mb-3">Présentation</h1>
+      <p className="text-center container-sm text-muted">
+        Découvrez nos sessions d'escape game, où vous pourrez tester vos
+        compétences en résolution d'énigmes et en travail d'équipe.
+        Plongez dans des univers captivants et résolvez des mystères palpitants
+        avec vos amis ou votre famille. Chaque session est conçue pour offrir
+        une expérience immersive unique, alliant réflexion, aventure et
+        divertissement. Que vous soyez un novice ou un expert, nos sessions
+        s'adaptent à tous les niveaux. Préparez-vous à vivre des moments
+        inoubliables et à relever des défis passionnants. Réservez dès maintenant
+        votre session et embarquez pour une aventure inédite !
+      </p>
+      <h2 className="text-center">Les Session</h2>
+      <p className="text-center">Vous retrouvez ici toutes nos sessions disponibles!</p>
       <div className="container">
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {data.map((session, index) => (

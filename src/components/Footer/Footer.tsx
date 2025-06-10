@@ -3,7 +3,7 @@ import "../../assets/styles/Footer.css";
 
 const Footer = (): JSX.Element => {
   return (
-    <footer className="bg-dark text-white py-4 w-100 mt-auto position-relative">
+    <footer className="bg-dark text-white py-4 w-100 footer">
       <div className="container-fluid px-0">
         <div className="container">
           <div className="row">
