@@ -123,7 +123,7 @@ const Footer = (): JSX.Element => {
           </div>
 
           <div className="text-center pt-3 mt-3 border-top border-secondary">
-            <p className="text-muted">
+            <p className="text-white mb-0">
               &copy; 2025 La Maison Horrifique - ESGI - CONFIDENTIAL
             </p>
           </div>
