@@ -40,9 +40,9 @@ const data = [
 
 export function Session() {
   return (
-    <div>
-      <h1>Les Session</h1>
-      <p>Vous retrouvez ici toutes nos sessions disponibles!</p>
+    <div className="pb-5">
+      <h1 style={{placeSelf: "center"}}>Les Session</h1>
+      <p style={{placeSelf: "center"}}>Vous retrouvez ici toutes nos sessions disponibles!</p>
       <div className="container">
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {data.map((session, index) => (
