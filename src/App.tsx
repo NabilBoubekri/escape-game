@@ -1,14 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Footer from './components/Footer/Footer'
 import HomePage from './components/Home/HomePage'
 
 function App() {
   return (
-    <HomePage>
-      
-    </HomePage>
+    <div className="d-flex flex-column min-vh-100">
+      <main className="flex-grow-1">
+        <HomePage />
+      </main>
+      <Footer />
+    </div>
   )
 }
 
