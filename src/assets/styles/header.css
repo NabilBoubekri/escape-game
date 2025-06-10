@@ -1,0 +1,19 @@
+/* Responsive Design for Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .navbar-toggler {
+    margin-bottom: 10px;
+  }
+
+  .nav-content {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.navbar-toggler  {
+  background-color: pink !important;
+}

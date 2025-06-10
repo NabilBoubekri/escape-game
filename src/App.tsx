@@ -1,15 +1,16 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import './App.css'
-import Footer from './components/Footer/Footer'
-import HomePage from './components/Home/HomePage'
+import AppRoutes from './routes';
 
 function App() {
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <main className="flex-grow-1">
-        <HomePage />
-      </main>
-      <Footer />
-    </div>
+   <Router>
+      <div className="App">
+        <main>
+          <AppRoutes />
+        </main>
+      </div>
+    </Router>
   )
 }
 
