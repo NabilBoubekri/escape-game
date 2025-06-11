@@ -8,7 +8,7 @@ const Footer = (): JSX.Element => {
         <div className="container">
           <div className="row">
             <div className="col-md-3 mb-3">
-              <h5 className="border-bottom pb-2 text-danger">
+              <h5 className="border-bottom pb-2 text-white">
                 Réseaux sociaux
               </h5>
               <ul className="list-unstyled">
@@ -19,7 +19,7 @@ const Footer = (): JSX.Element => {
                     rel="noopener noreferrer"
                     className="text-light d-flex align-items-center"
                   >
-                    <span className="me-2">📘</span> Facebook
+                    Facebook
                   </a>
                 </li>
                 <li className="mb-2">
@@ -29,50 +29,40 @@ const Footer = (): JSX.Element => {
                     rel="noopener noreferrer"
                     className="text-light d-flex align-items-center"
                   >
-                    <span className="me-2">📷</span> Instagram
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-light d-flex align-items-center"
-                  >
-                    <span className="me-2">🐦</span> Twitter
+                    Instagram
                   </a>
                 </li>
               </ul>
             </div>
 
             <div className="col-md-3 mb-3">
-              <h5 className="border-bottom pb-2 text-danger">Nos sessions</h5>
+              <h5 className="border-bottom pb-2 text-white">Nos sessions</h5>
               <ul className="list-unstyled">
                 <li className="mb-2">
-                  <a href="/sessions/horreur-manoir" className="text-light">
-                    Le Manoir
+                  <a href="/sessions/lascenseur" className="text-light">
+                    L'ASCENSEUR
                   </a>
                 </li>
                 <li className="mb-2">
-                  <a href="/sessions/apocalypse-zombie" className="text-light">
-                    Cimetière de Zombie
+                  <a href="/sessions/le-musee" className="text-light">
+                    LE MUSÉE
                   </a>
                 </li>
                 <li className="mb-2">
-                  <a href="/sessions/asylum" className="text-light">
-                    Le parc d'attraction Abandonné
+                  <a href="/sessions/le-pharaon" className="text-light">
+                    LE PHARAON
                   </a>
                 </li>
                 <li className="mb-2">
                   <a href="/sessions/tous" className="text-light">
-                    Toutes nos horribles sessions
+                    Toutes nos horribles sessions...
                   </a>
                 </li>
               </ul>
             </div>
 
             <div className="col-md-3 mb-3">
-              <h5 className="border-bottom pb-2 text-danger">Informations</h5>
+              <h5 className="border-bottom pb-2 text-white">Informations</h5>
               <ul className="list-unstyled">
                 <li className="mb-2">
                   <a href="/mentions-legales" className="text-light">
@@ -98,7 +88,7 @@ const Footer = (): JSX.Element => {
             </div>
 
             <div className="col-md-3 mb-3">
-              <h5 className="border-bottom pb-2 text-danger">Contact</h5>
+              <h5 className="border-bottom pb-2 text-white">Contact</h5>
               <ul className="list-unstyled">
                 <li className="mb-2">
                   <a href="/contact" className="text-light">
