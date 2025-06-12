@@ -1,11 +1,9 @@
-import {Session} from "../Session/Session";
 import { Presentation } from "./Presentation";
 
 export default function HomePage() {
   return( 
-    <div>
-        <Presentation />
-        <Session />
-    </div>
+      <div style={{ minHeight: "70vh", alignContent: "center" }}>
+          <Presentation />
+      </div>
     );
 }

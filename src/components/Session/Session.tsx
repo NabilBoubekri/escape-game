@@ -40,7 +40,7 @@ const data = [
 
 export function Session() {
   return (
-    <div className="pb-5">
+    <div className="pb-5 animate-fade-in">
       <h2 className="text-center">Les Session</h2>
       <p className="text-center">Vous retrouvez ici toutes nos sessions disponibles!</p>
       <div className="container">

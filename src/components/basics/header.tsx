@@ -38,8 +38,8 @@ export const Header: React.FC = () => {
         <div className="offcanvas-body">
           <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
             <NavItem href="/" label="Home" />
-            <NavItem href="/reservation" label="Réservation" />
             <NavItem href="/sessions" label="Sessions" />
+            <NavItem href="/reservation" label="Réservation" />
             <NavItem href="/contact" label="Contact" />
           </ul>
         </div>
