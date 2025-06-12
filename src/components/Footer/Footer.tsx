@@ -1,7 +1,9 @@
 import type { JSX } from "react";
 import "../../assets/styles/Footer.css";
+import { useNavigate } from "react-router-dom";
 
 const Footer = (): JSX.Element => {
+  const navigate = useNavigate();
   return (
     <footer className="bg-dark text-white py-4 w-100 footer">
       <div className="container-fluid px-0">
@@ -54,7 +56,11 @@ const Footer = (): JSX.Element => {
                   </a>
                 </li>
                 <li className="mb-2">
-                  <a href="/sessions/tous" className="text-light">
+                  <a 
+                    onClick={() => navigate("/sessions/")} 
+                    className="text-light"
+                    style={{ cursor: "pointer" }}
+                    >
                     Toutes nos horribles sessions...
                   </a>
                 </li>
@@ -91,7 +97,10 @@ const Footer = (): JSX.Element => {
               <h5 className="border-bottom pb-2 text-white">Contact</h5>
               <ul className="list-unstyled">
                 <li className="mb-2">
-                  <a href="/contact" className="text-light">
+                  <a 
+                    onClick={() => navigate("/contact")} 
+                    className="text-light"
+                    style={{ cursor: "pointer" }}>
                     Formulaire de contact
                   </a>
                 </li>
