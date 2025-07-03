@@ -1,10 +1,10 @@
 import { Route, Routes} from "react-router-dom";
-import { Header } from "../components/basics/header";
-import HomePage from "../components/Home/HomePage";
-import Footer from "../components/Footer/Footer";
-import { Session } from "../components/Session/Session";
-import { Reservation } from "../components/Reservation/Reservation";
-import { Contact } from "../components/Contact/Contact";
+import { Header } from "../shared/components/header";
+import HomePage from "../features/home/components/HomePage";
+import Footer from "../shared/components/Footer";
+import { Session } from "../features/session/components/Session";
+import { Reservation } from "../features/reservation/components/Reservation";
+import { Contact } from "../features/contact/components/Contact";
 const AppRoutes = () => {
 
   return (
@@ -16,7 +16,7 @@ const AppRoutes = () => {
         <Route path="/sessions" element={<Session/>}/>
         <Route path="/contact" element={<Contact />} />
       </Routes>
-       <Footer/>
+      <Footer />
     </>
   );
 };
