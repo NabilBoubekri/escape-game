@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import type { BaseFormInfo } from '../../shared/types';
+import Select from 'react-select';
+import type { GroupBase } from 'react-select';
+import type { OptionType } from '../../shared/types';
+import { customStyles } from '../../shared/customStyes';
 
 interface ReservationForm extends BaseFormInfo {
   session: string;
@@ -8,6 +12,25 @@ interface ReservationForm extends BaseFormInfo {
   players: number;
   phone: string;
 }
+
+
+const options: OptionType[] = [
+  { value: 'ascenseur', label: "L'ASCENSEUR" },
+  { value: 'musee', label: 'LE MUSÉE' },
+  { value: 'pharaon', label: 'LE PHARAON' },
+  { value: 'braquage', label: 'LE BRAQUAGE' },
+  { value: 'crime', label: 'LE CRIME' },
+];
+
+const hoursOptions: OptionType[] = [
+  { value: '10:00', label: '10:00' },
+  { value: '11:30', label: '11:30' },
+  { value: '14:00', label: '14:00' },
+  { value: '15:30', label: '15:30' },
+  { value: '17:00', label: '17:00' },
+  { value: '18:30', label: '18:30' },
+  { value: '20:00', label: '20:00' },
+];
 
 export function Reservation() {
   const [formData, setFormData] = useState<ReservationForm>({
@@ -32,20 +55,19 @@ export function Reservation() {
               <form>
                 <div className="mb-3">
                   <label htmlFor="session" className="form-label">Session</label>
-                  <select 
-                    className="form-select"
-                    id="session"
-                    value={formData.session}
-                    onChange={(e) => setFormData({...formData, session: e.target.value})}
+                  <Select<OptionType, false, GroupBase<OptionType>>
+                    classNamePrefix="select"
+                    styles={customStyles}
+                    isSearchable
+                    name="session"
+                    options={options}
                     required
-                  >
-                    <option value="">Choisissez une session</option>
-                    <option value="ascenseur">L'ASCENSEUR</option>
-                    <option value="musee">LE MUSÉE</option>
-                    <option value="pharaon">LE PHARAON</option>
-                    <option value="braquage">LE BRAQUAGE</option>
-                    <option value="crime">LE CRIME</option>
-                  </select>
+                    placeholder="Choisissez une session"
+                    value={options.find((opt) => opt.value === formData.session) || null}
+                    onChange={(selected) => {
+                      setFormData({ ...formData, session: selected?.value || '' });
+                    }}
+                  />
                 </div>
 
                 <div className="row mb-3">
@@ -62,22 +84,19 @@ export function Reservation() {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="time" className="form-label">Heure</label>
-                    <select
-                      className="form-select"
+                    <Select<OptionType, false, GroupBase<OptionType>>
+                      classNamePrefix="select"
+                      styles={customStyles}
+                      isSearchable
                       id="time"
-                      value={formData.time}
-                      onChange={(e) => setFormData({...formData, time: e.target.value})}
+                      placeholder="Choisissez une heure"
+                      options={hoursOptions}
                       required
-                    >
-                      <option value="">Choisissez un horaire</option>
-                      <option value="10:00">10:00</option>
-                      <option value="11:30">11:30</option>
-                      <option value="14:00">14:00</option>
-                      <option value="15:30">15:30</option>
-                      <option value="17:00">17:00</option>
-                      <option value="18:30">18:30</option>
-                      <option value="20:00">20:00</option>
-                    </select>
+                      value={hoursOptions.find((opt) => opt.value === formData.time) || null}
+                      onChange={(selected) => {
+                        setFormData({ ...formData, time: selected?.value || '' });
+                      }}
+                    />
                   </div>
                 </div>
 

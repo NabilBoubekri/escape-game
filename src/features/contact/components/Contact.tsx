@@ -1,10 +1,21 @@
 import { useState } from 'react';
 import type { BaseFormInfo } from '../../shared/types';
+import type { OptionType } from '../../shared/types';
+import Select from 'react-select';
+import type { GroupBase } from 'react-select';
+import { customStyles } from '../../shared/customStyes';
 
 interface ContactForm extends BaseFormInfo {
   subject: string;
   message: string;
 }
+
+const options: OptionType[] = [
+  { value: 'reservation', label: 'Question sur une réservation' },
+  { value: 'information', label: 'Demande d\'information' },
+  { value: 'reclamation', label: 'Réclamation' },
+  { value: 'autre', label: 'Autre' }
+];
 
 export function Contact() {
   const [formData, setFormData] = useState<ContactForm>({
@@ -56,19 +67,19 @@ export function Contact() {
 
                 <div className="mb-3">
                   <label htmlFor="subject" className="form-label">Sujet</label>
-                  <select
-                    className="form-select"
+                  <Select<OptionType, false, GroupBase<OptionType>>
+                    classNamePrefix="select"
+                    styles={customStyles}
+                    isSearchable
                     id="subject"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                    placeholder="Choisissez un sujet"
+                    options={options}
                     required
-                  >
-                    <option value="">Choisissez un sujet</option>
-                    <option value="reservation">Question sur une réservation</option>
-                    <option value="information">Demande d'information</option>
-                    <option value="reclamation">Réclamation</option>
-                    <option value="autre">Autre</option>
-                  </select>
+                    value={options.find((opt) => opt.value === formData.subject) || null}
+                    onChange={(selected) => {
+                      setFormData({ ...formData, subject: selected?.value || '' });
+                    }}
+                  />
                 </div>
 
                 <div className="mb-4">
