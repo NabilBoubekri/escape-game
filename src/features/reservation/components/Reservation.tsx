@@ -1,12 +1,11 @@
 import { useState } from 'react';
+import type { BaseFormInfo } from '../../shared/types';
 
-interface ReservationForm {
+interface ReservationForm extends BaseFormInfo {
   session: string;
   date: string;
   time: string;
   players: number;
-  name: string;
-  email: string;
   phone: string;
 }
 

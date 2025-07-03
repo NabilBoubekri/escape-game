@@ -1,8 +1,7 @@
 import { useState } from 'react';
+import type { BaseFormInfo } from '../../shared/types';
 
-interface ContactForm {
-  name: string;
-  email: string;
+interface ContactForm extends BaseFormInfo {
   subject: string;
   message: string;
 }
