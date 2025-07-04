@@ -1,4 +1,6 @@
 name: CI/CD Pipeline
+permissions:
+  contents: write
 on:
   push:
     branches:
@@ -20,3 +22,12 @@ jobs:
         run: npm install
       - name: Build project
         run: npm run build
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/al-1'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: deployment_2
+          commit_message: 'Deploy to GitHub Pages'
+          force_orphan: true
