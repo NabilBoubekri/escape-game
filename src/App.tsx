@@ -24,7 +24,7 @@ import { BrowserRouter  } from 'react-router-dom';
 
 function App() {
   return (
-   <BrowserRouter basename='escape-game'>
+   <BrowserRouter basename='/escape-game'>
       <div className="App">
         <main>
           <AppRoutes />
