@@ -12,6 +12,7 @@ const AppRoutes = () => {
       <Header /> 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/escape-game" element={<HomePage />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/sessions" element={<Session/>}/>
         <Route path="/contact" element={<Contact />} />

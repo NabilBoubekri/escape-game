@@ -4,30 +4,35 @@ permissions:
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - al-1
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20'
+      - name: Setup pnpm 
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
+      - name: Run tests
+        run: pnpm test
       - name: Build project
-        run: npm run build
+        run: pnpm build
+
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/al-1'
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: deployment_2
+          publish_branch: deployment
           commit_message: 'Deploy to GitHub Pages'
           force_orphan: true
