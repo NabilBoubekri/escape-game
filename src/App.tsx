@@ -1,7 +1,6 @@
 import './App.css'
-import React, { useEffect, useState } from 'react';
 import AppRoutes from './routes';
-import { Route, type Meta } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 // function DynamicRouter({ children }: { children: React.ReactNode }) {
 //   const [Router, setRouter] = useState<React.ComponentType<{ basename: string, children: React.ReactNode }> | null>(null);
