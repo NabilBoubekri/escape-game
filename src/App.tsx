@@ -1,6 +1,6 @@
 import './App.css'
 import AppRoutes from './routes';
-import { Route } from 'react-router-dom';
+import { BrowserRouter  } from 'react-router-dom';
 
 // function DynamicRouter({ children }: { children: React.ReactNode }) {
 //   const [Router, setRouter] = useState<React.ComponentType<{ basename: string, children: React.ReactNode }> | null>(null);
@@ -24,13 +24,13 @@ import { Route } from 'react-router-dom';
 
 function App() {
   return (
-   <Route>
+   <BrowserRouter>
       <div className="App">
         <main>
           <AppRoutes />
         </main>
       </div>
-    </Route>
+    </BrowserRouter>
   )
 }
 
