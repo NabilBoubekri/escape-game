@@ -1,8 +1,10 @@
 import { openOffcanvas } from "../../assets/tools";
 import { NavItem } from "./navItem";
 import "../../assets/styles/header.css";
+import { useAuth } from "../context/AuthContext";
 
 export const Header: React.FC = () => {
+  const { isAuth } = useAuth()
   return (
     <>
       <nav className="navbar">
@@ -41,6 +43,15 @@ export const Header: React.FC = () => {
             <NavItem href="/sessions" label="Sessions" />
             <NavItem href="/reservation" label="Réservation" />
             <NavItem href="/contact" label="Contact" />
+            <NavItem href="/login" label="Login"/>
+            { 
+              isAuth &&
+              <NavItem href="/admin" label="Dashboard"/>
+            }
+            {
+              isAuth && 
+              <NavItem href="/admin/create" label="Create Session"/>
+            }
           </ul>
         </div>
       </div>

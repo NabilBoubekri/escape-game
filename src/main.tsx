@@ -2,18 +2,27 @@ import "bootstrap/dist/css/bootstrap.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import "bootstrap/dist/css/bootstrap.css";
-import { worker } from "./mocks/browser.ts";
-import "bootstrap/dist/css/bootstrap.css";
+import { AuthProvider } from "./shared/context/AuthContext.tsx";
 
-worker.start({
-  serviceWorker: {
-    url: import.meta.env.BASE_URL + "/mockServiceWorker.js"
+async function enableMocksAndRenderApp() {
+  if (import.meta.env.DEV) {
+    const { worker } = await import("./mocks/browser");
+    const base = import.meta.env.BASE_URL.replace(/\/+$/, "");
+    await worker.start({
+      serviceWorker: {
+        url: `${base}/mockServiceWorker.js`,
+        options: { scope: `${base}/` },
+      },
+    });
   }
-}).then(() => {
+
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </StrictMode>
   );
-});
+}
+
+enableMocksAndRenderApp();

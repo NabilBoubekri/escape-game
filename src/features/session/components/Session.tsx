@@ -6,7 +6,7 @@ export function Session() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("escape-game/api/v1/sessions");
+        const response = await fetch("/api/v1/sessions", { headers:  { 'Cache-Control': 'no-cache' }});
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

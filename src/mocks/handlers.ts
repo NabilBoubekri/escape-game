@@ -70,7 +70,7 @@ export const handlers = [
 
   http.post("*/api/v1/login", async ({ request }) => {
     const { email, password } = await request.json() as LoginRequest;
-    if (email === "admin@maisonhorrifique.fr" && password === "admin") {
+    if (email === "admin@gmail.com" && password === "admin") {
       employeConnecte = true;
       return HttpResponse.json({ success: true, role: "admin" });
     }
