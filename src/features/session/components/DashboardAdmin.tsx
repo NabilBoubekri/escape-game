@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import type { Session } from "../../shared/types"
+import { Pen, Plus, Trash } from "lucide-react"
 
 export default function DashboardAdmin() {
   const [sessions, setSessions] = useState<Session[]>([])
@@ -37,11 +38,11 @@ export default function DashboardAdmin() {
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{"minHeight": "75vh"}}>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Dashboard Admin</h2>
         <button className="btn btn-success" onClick={() => navigate("/admin/create")}>
-          ➕ Créer une session
+          <Plus /> Créer une session
         </button>
       </div>
 
@@ -80,8 +81,8 @@ export default function DashboardAdmin() {
                   </td>
                   <td>
                     <div className="d-flex gap-2">
-                      <button className="btn btn-warning btn-sm" onClick={() => handleEdit(s.id)}>✏️</button>
-                      <button className="btn btn-danger btn-sm" onClick={() => handleDelete(s.id)}>🗑️</button>
+                      <button className="btn btn-warning btn-sm" onClick={() => handleEdit(s.id)}><Pen /></button>
+                      <button className="btn btn-danger btn-sm" onClick={() => handleDelete(s.id)}><Trash /></button>
                     </div>
                   </td>
                 </tr>
