@@ -19,7 +19,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/escape-game" element={<HomePage />} />
-        <Route path="/login" element={<LoginForm onLoginSuccess={ () => navigate('/admin/create')} />} />
+        <Route path="/login" element={<LoginForm onLoginSuccess={ () => navigate('/admin')} />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/sessions" element={<Session/>}/>
         <Route path="/contact" element={<Contact />} />
