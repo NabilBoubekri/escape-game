@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import type { BaseFormInfo } from '../../shared/types';
+import React, { useEffect, useState } from 'react';
+import type { BaseFormInfo, NewReservation, Session } from '../../shared/types';
 import Select from 'react-select';
 import type { GroupBase } from 'react-select';
 import type { OptionType } from '../../shared/types';
 import { customStyles } from '../../shared/customStyes';
+import { useNavigate } from 'react-router-dom';
 
 interface ReservationForm extends BaseFormInfo {
   session: string;
@@ -13,26 +14,9 @@ interface ReservationForm extends BaseFormInfo {
   phone: string;
 }
 
-
-const options: OptionType[] = [
-  { value: 'ascenseur', label: "L'ASCENSEUR" },
-  { value: 'musee', label: 'LE MUSÉE' },
-  { value: 'pharaon', label: 'LE PHARAON' },
-  { value: 'braquage', label: 'LE BRAQUAGE' },
-  { value: 'crime', label: 'LE CRIME' },
-];
-
-const hoursOptions: OptionType[] = [
-  { value: '10:00', label: '10:00' },
-  { value: '11:30', label: '11:30' },
-  { value: '14:00', label: '14:00' },
-  { value: '15:30', label: '15:30' },
-  { value: '17:00', label: '17:00' },
-  { value: '18:30', label: '18:30' },
-  { value: '20:00', label: '20:00' },
-];
-
 export function Reservation() {
+  const navigation = useNavigate();
+  const [sessions, setSessions] = useState<Session[]>([]);
   const [formData, setFormData] = useState<ReservationForm>({
     session: '',
     date: '',
@@ -42,6 +26,81 @@ export function Reservation() {
     email: '',
     phone: ''
   });
+
+  useEffect(()=>{
+    const fetchSessions = async () =>{
+      const res = fetch('/api/v1/sessions');
+      const data = await (await res).json();
+      setSessions(data);
+    }
+
+    fetchSessions();
+  }, []);
+
+  const sessionOptions: OptionType[] = sessions.map(s => ({
+    value: s.id,
+    label: s.title,
+  }));
+
+  const selectedSession = sessions.find(s => s.id === formData.session);
+
+  const dateToHoursMap: Record<string, string[]> = {};
+
+  selectedSession?.creneaux.forEach((iso) => {
+    const date = new Date(iso).toISOString().split('T')[0];
+    const time = new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    if (!dateToHoursMap[date]) dateToHoursMap[date] = [];
+    dateToHoursMap[date].push(time);
+  });
+
+
+  const availableDates = Object.keys(dateToHoursMap);
+
+  const hourOptions: OptionType[] = (formData.date && dateToHoursMap[formData.date])
+    ? dateToHoursMap[formData.date].map(h => ({
+        value: h,
+        label: h
+      }))
+    : [];
+
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const isoDateTime = `${formData.date}T${formData.time}`;
+
+    const reservationData: NewReservation = {
+      email: formData.email,
+      sessionId: formData.session,
+      creneau: isoDateTime,
+      participants: formData.players,
+    };
+
+    const res = await fetch('/api/v1/reservations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(reservationData),
+    });
+
+    if (res.ok){
+      await fetch(`/api/v1/sessions/${formData.session}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          creneaux: selectedSession!.creneaux.filter(c => c !== isoDateTime),
+        }),
+      });
+      alert("Reservation réussie !");
+      setFormData({ session: '', date: '', time: '', players: 2, name: '', email: '', phone: '' });
+      navigation("/");
+    }
+    else{
+      alert("Erreur lors de la réservation");
+    }
+
+  }
 
   return (
     <div className="container py-5 animate-fade-in">
@@ -60,10 +119,10 @@ export function Reservation() {
                     styles={customStyles}
                     isSearchable
                     name="session"
-                    options={options}
+                    options={sessionOptions}
                     required
                     placeholder="Choisissez une session"
-                    value={options.find((opt) => opt.value === formData.session) || null}
+                    value={sessionOptions.find((opt) => opt.value === formData.session) || null}
                     onChange={(selected) => {
                       setFormData({ ...formData, session: selected?.value || '' });
                     }}
@@ -75,12 +134,29 @@ export function Reservation() {
                     <label htmlFor="date" className="form-label">Date</label>
                     <input
                       type="date"
+                      list="available-dates"
                       className="form-control"
                       id="date"
                       value={formData.date}
-                      onChange={(e) => setFormData({...formData, date: e.target.value})}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (availableDates.includes(val)) {
+                          setFormData({ ...formData, date: val });
+                        } else {
+                          alert("Cette date n’est pas disponible.");
+                          setFormData({ ...formData, date: '' });
+                        }
+                      }}
                       required
+                      disabled={!selectedSession}
                     />
+
+                    <datalist id="available-dates">
+                      {availableDates.map(date => (
+                        <option key={date} value={date} />
+                      ))}
+                    </datalist>
+
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="time" className="form-label">Heure</label>
@@ -89,26 +165,28 @@ export function Reservation() {
                       styles={customStyles}
                       isSearchable
                       id="time"
-                      placeholder="Choisissez une heure"
-                      options={hoursOptions}
+                      placeholder={formData.date ? "Choisissez une heure" : "Sélectionnez une date d'abord"}
+                      options={hourOptions}
                       required
-                      value={hoursOptions.find((opt) => opt.value === formData.time) || null}
+                      isDisabled={!formData.date}
+                      value={hourOptions.find((opt) => opt.value === formData.time) || null}
                       onChange={(selected) => {
                         setFormData({ ...formData, time: selected?.value || '' });
                       }}
                     />
+
                   </div>
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="players" className="form-label">Nombre de joueurs (2-6)</label>
+                  <label htmlFor="players" className="form-label">Nombre de joueurs ({selectedSession?.participantsMin}-6)</label>
                   <input
                     type="number"
                     className="form-control"
                     id="players"
-                    min="2"
+                    min={selectedSession?.participantsMin}
                     max="6"
-                    value={formData.players}
+                    value={selectedSession?.participantsMin ? selectedSession?.participantsMin: formData.players}
                     onChange={(e) => setFormData({...formData, players: parseInt(e.target.value)})}
                     required
                   />
@@ -151,7 +229,11 @@ export function Reservation() {
                 </div>
 
                 <div className="text-center">
-                  <button type="submit" className="btn btn-danger btn-lg">
+                  <button 
+                    type="submit" 
+                    className="btn btn-danger btn-lg"
+                    onClick={handleSubmit}
+                  >
                     Réserver maintenant
                   </button>
                 </div>

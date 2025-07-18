@@ -91,12 +91,10 @@ export const handlers = [
   }),
 
   http.put("*/api/v1/sessions/:id", async ({ params, request }) => {
-    if (!employeConnecte)
-      return HttpResponse.json({ error: "Non autorisé" }, { status: 403 });
     const { id } = params;
     const data = await request.json() as Partial<Session>;
     sessions = sessions.map((s) => (s.id === id ? { ...s, ...data } : s));
-    return HttpResponse.json({ success: true });
+    return HttpResponse.json({ success: true, sessions });
   }),
 
   http.delete("*/api/v1/sessions/:id", ({ params }) => {
