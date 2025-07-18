@@ -15,7 +15,7 @@ interface ReservationForm extends BaseFormInfo {
 }
 
 export function Reservation() {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const [sessions, setSessions] = useState<Session[]>([]);
   const [formData, setFormData] = useState<ReservationForm>({
     session: '',
@@ -94,7 +94,7 @@ export function Reservation() {
       });
       alert("Reservation réussie !");
       setFormData({ session: '', date: '', time: '', players: 2, name: '', email: '', phone: '' });
-      navigation("/");
+      navigate("/");
     }
     else{
       alert("Erreur lors de la réservation");
